@@ -1,0 +1,15 @@
+:root {
+  // Main colors
+  --darkBlue: rgba(45, 53, 64, 1);
+  --green: rgba(191, 179, 4, 1);
+  --yellow: rgba(242, 160, 7, 1);
+  --darkred: rgba(140, 29, 4, 1);
+  --red: rgba(242, 7, 7, 1);
+  --white: rgba(255, 255, 255, 1);
+  --gray: rgba(119, 124, 132, 1);
+  --shadow: rgba(15, 15, 15, 0.75);
+
+  //typography
+  --primaryheading: var(--darkBlue);
+  --primaryparagraph: var(--gray);
+}
