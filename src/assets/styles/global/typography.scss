@@ -1,0 +1,31 @@
+:root {
+  --font-primary: "Montserrat", sans-serif;
+  --font-secondary: "Fredoka One", cursive;
+}
+
+body {
+  font-family: var(--font-primary);
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  font-family: var(--font-secondary);
+  font-size: 3rem;
+  letter-spacing: 0.15rem;
+  color: var(--white);
+  margin: 0;
+}
+h2,
+h3,
+h4 {
+  font-family: var(--font-secondary);
+  letter-spacing: 0.15rem;
+  color: var(--darkblue);
+}
+
+p {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--primaryparagraph);
+}
