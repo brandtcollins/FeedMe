@@ -42,7 +42,7 @@ const City = (props) => {
   return (
     <Container>
       <form onSubmit={handleSearch}>
-        <input onChange={handleChange} placeholder="Search by city"></input>
+        <input onChange={handleChange} placeholder="Enter a city"></input>
         <button>Search</button>
       </form>
       <SearchResult
