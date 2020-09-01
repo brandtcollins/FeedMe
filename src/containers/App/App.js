@@ -5,7 +5,6 @@ import CitySearch from "../CitySearch/CitySearch";
 import ProximityResults from "../../components/ProximitySearch/ProximitySearch";
 import Background from "../../components/Background/Background";
 import axios from "axios";
-import styles from "../App/App.module.scss";
 
 function App() {
   const ZOMATO_API_KEY = process.env.REACT_APP_ZOMATO_API_KEY;
@@ -44,7 +43,7 @@ function App() {
           updateRestaurants(response.data.restaurants);
         });
     };
-
+    console.log(`searchType: ${searchType}`);
     handleLocationSearch();
   }, [position]);
 
@@ -53,7 +52,7 @@ function App() {
   }, [restaurants]);
 
   return (
-    <div className={styles.container}>
+    <>
       <Header />
       {!searchType ? (
         <SearchType
@@ -62,6 +61,7 @@ function App() {
         />
       ) : searchType === "city" ? (
         <CitySearch
+          searchType={searchType}
           updateSearch={updateSearch}
           updatedPosition={updatePosition}
           selectedRestaurant={selectedRestaurant}
@@ -74,9 +74,8 @@ function App() {
           restaurantSelector={restaurantSelector}
         />
       )}
-      <div className={styles.background}></div>
       <Background />
-    </div>
+    </>
   );
 }
 

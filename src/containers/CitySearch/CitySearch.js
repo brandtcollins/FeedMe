@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Container from "../../components/Container/Container";
 import SearchResult from "../../components/SearchResult/SearchResult";
+import SearchForm from "./SearchForm/SearchForm";
 
 const City = (props) => {
   const OPENCAGE_API_KEY = process.env.REACT_APP_OPENCAGE_API_KEY;
@@ -10,6 +11,7 @@ const City = (props) => {
 
   const {
     updateSearch,
+    searchType,
     updatedPosition,
     selectedRestaurant,
     restaurantSelector,
@@ -40,11 +42,8 @@ const City = (props) => {
   };
 
   return (
-    <Container>
-      <form onSubmit={handleSearch}>
-        <input onChange={handleChange} placeholder="Enter a city"></input>
-        <button>Search</button>
-      </form>
+    <Container searchType={searchType}>
+      <SearchForm handleSearch={handleSearch} handleChange={handleChange} />
       <SearchResult
         restaurant={restaurant}
         selectedRestaurant={selectedRestaurant}
