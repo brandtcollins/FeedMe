@@ -4,6 +4,8 @@ import Container from "../../components/Container/Container";
 import SearchResult from "../../components/SearchResult/SearchResult";
 
 const City = (props) => {
+  const OPENCAGE_API_KEY = process.env.REACT_APP_OPENCAGE_API_KEY;
+
   const [input, updateInput] = useState("");
 
   const {
@@ -22,7 +24,7 @@ const City = (props) => {
       const response = await axios.get(
         `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
           input
-        )}&key=2cfb4c921d0d470d86c23759893f613e&language=en&pretty=1`
+        )}&key=${OPENCAGE_API_KEY}&language=en&pretty=1`
       );
       let searchResults = response.data.results.shift();
       updatedPosition({

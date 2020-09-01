@@ -8,6 +8,8 @@ import axios from "axios";
 import styles from "../App/App.module.scss";
 
 function App() {
+  const ZOMATO_API_KEY = process.env.REACT_APP_ZOMATO_API_KEY;
+
   const [search, updateSearch] = useState("");
   const [searchType, setSearchType] = useState(null);
   const [position, updatePosition] = useState({
@@ -29,8 +31,7 @@ function App() {
       baseURL: "https://developers.zomato.com/api/v2.1/",
     });
 
-    zomato.defaults.headers.common["user-key"] =
-      "f56b331b1f0c45b871f1924616db8113";
+    zomato.defaults.headers.common["user-key"] = `${ZOMATO_API_KEY}`;
     zomato.defaults.headers.post["Content-Type"] = "application/json";
 
     const handleLocationSearch = () => {
