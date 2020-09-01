@@ -1,0 +1,12 @@
+.next {
+  background-color: var(--nextButton);
+}
+
+.viewMore {
+  background-color: var(--viewMoreButton);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}

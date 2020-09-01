@@ -1,6 +1,23 @@
 :root {
   --font-primary: "Montserrat", sans-serif;
   --font-secondary: "Fredoka One", cursive;
+
+  //base values
+  --text-base-size: 1rem;
+  --text-scale-ratio: 1.2;
+
+  //type scale
+  --text-sm: calc(1rem / var(--text-scale-ratio));
+  --text-md: calc(1rem * var(--text-scale-ratio));
+  --text-lg: calc(1rem * var(--text-scale-ratio) * var(--text-scale-ratio));
+  --text-xl: calc(
+    1.25rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio)
+  );
+  --text-xxl: calc(
+    1.5rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
+      var(--text-scale-ratio) * var(--text-scale-ratio)
+  );
 }
 
 body {
@@ -9,23 +26,33 @@ body {
   margin: 0;
 }
 
-h1 {
-  font-family: var(--font-secondary);
-  font-size: 3rem;
-  letter-spacing: 0.15rem;
-  color: var(--white);
-  margin: 0;
-}
+h1,
 h2,
 h3,
 h4 {
   font-family: var(--font-secondary);
   letter-spacing: 0.1rem;
-  color: var(--darkblue);
+  margin: 0;
+  color: var(--primaryheading);
+}
+
+//text size
+
+h1,
+.text--xxl {
+  font-size: var(--text-xxl);
+  letter-spacing: 0.15rem;
+}
+
+h2,
+.text--xl {
+  font-size: var(--text-xl);
+  margin: var(--space-sm) 0;
 }
 
 p {
   font-weight: 600;
   font-size: 0.9rem;
   color: var(--primaryparagraph);
+  margin: 0;
 }
