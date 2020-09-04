@@ -6,7 +6,7 @@ const SearchForm = (props) => {
   return (
     <form onSubmit={handleSearch}>
       <input onChange={handleChange} placeholder="Enter a city"></input>
-      <button>Search</button>
+      <button className={styles.search}>Search</button>
     </form>
   );
 };

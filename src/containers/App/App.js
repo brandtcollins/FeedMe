@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import SearchType from "../../components/SearchType/SearchType";
 import CitySearch from "../CitySearch/CitySearch";
-import ProximityResults from "../../components/ProximitySearch/ProximitySearch";
+import ProximitySearch from "../../components/ProximitySearch/ProximitySearch";
 import Background from "../../components/Background/Background";
 import axios from "axios";
 
 function App() {
-  const ZOMATO_API_KEY = process.env.REACT_APP_ZOMATO_API_KEY;
-
-  const [search, updateSearch] = useState("");
+  const [search, updateSearch] = useState(null);
+  const [category, updateCategory] = useState(true);
   const [searchType, setSearchType] = useState(null);
   const [position, updatePosition] = useState({
     latitude: null,
@@ -19,13 +18,16 @@ function App() {
   const [selectedRestaurant, updateSelectedRestaurant] = useState("");
 
   const restaurantSelector = () => {
-    const randomNumber = Math.floor(Math.random() * 21);
+    const randomNumber = Math.floor(Math.random() * 20);
     if (search) {
       updateSelectedRestaurant(restaurants[randomNumber].restaurant);
     }
   };
 
   useEffect(() => {
+    const zomatoCategory = category ? "6,8,9,10" : "14";
+    const ZOMATO_API_KEY = process.env.REACT_APP_ZOMATO_API_KEY;
+
     let zomato = axios.create({
       baseURL: "https://developers.zomato.com/api/v2.1/",
     });
@@ -33,17 +35,19 @@ function App() {
     zomato.defaults.headers.common["user-key"] = `${ZOMATO_API_KEY}`;
     zomato.defaults.headers.post["Content-Type"] = "application/json";
 
-    const handleLocationSearch = () => {
+    const handleLocationSearch = async () => {
       zomato
         .get(
-          `search?start=1&count=50&&category=9&lat=${position.latitude}&lon=${position.longitude}&radius=500&sort=real_distance`
+          `search?start=1&count=50&&category=${zomatoCategory}&lat=${position.latitude}&lon=${position.longitude}&radius=500&sort=real_distance`
         )
         .then((response) => {
           updateSearch(true);
           updateRestaurants(response.data.restaurants);
+          console.log(`location Search: ${restaurants}`);
         });
     };
-    console.log(`searchType: ${searchType}`);
+    console.log(`useEffect load: ${restaurants}`);
+
     handleLocationSearch();
   }, [position]);
 
@@ -51,11 +55,30 @@ function App() {
     restaurantSelector();
   }, [restaurants]);
 
+  const resetSearch = () => {
+    updateSelectedRestaurant("");
+    updateSearch(null);
+    setSearchType(null);
+    updateRestaurants(null);
+    console.log(`reset: ${restaurants}`);
+  };
+
+  const handleCategoryChange = (categoryEl) => {
+    updateCategory(categoryEl);
+    resetSearch();
+  };
+
   return (
     <>
-      <Header />
+      <Header
+        category={category}
+        updateCategory={updateCategory}
+        handleCategoryChange={handleCategoryChange}
+      />
+
       {!searchType ? (
         <SearchType
+          updateSearch={updateSearch}
           setSearchType={setSearchType}
           updatedPosition={updatePosition}
         />
@@ -69,12 +92,12 @@ function App() {
           restaurantSelector={restaurantSelector}
         />
       ) : (
-        <ProximityResults
+        <ProximitySearch
           selectedRestaurant={selectedRestaurant}
           restaurantSelector={restaurantSelector}
         />
       )}
-      <Background />
+      <Background category={category} />
     </>
   );
 }
