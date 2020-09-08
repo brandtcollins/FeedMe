@@ -25,7 +25,7 @@ function App() {
   };
 
   useEffect(() => {
-    const zomatoCategory = category ? "6,8,9,10" : "14";
+    const zomatoCategory = category ? "6,8,9,10" : "3";
     const ZOMATO_API_KEY = process.env.REACT_APP_ZOMATO_API_KEY;
 
     let zomato = axios.create({
@@ -42,17 +42,17 @@ function App() {
         )
         .then((response) => {
           updateSearch(true);
+          console.log(response);
           updateRestaurants(response.data.restaurants);
-          console.log(`location Search: ${restaurants}`);
         });
     };
-    console.log(`useEffect load: ${restaurants}`);
-
+    console.log(`Category is: ${category}`);
     handleLocationSearch();
   }, [position]);
 
   useEffect(() => {
     restaurantSelector();
+    console.log(restaurants);
   }, [restaurants]);
 
   const resetSearch = () => {
@@ -93,6 +93,7 @@ function App() {
         />
       ) : (
         <ProximitySearch
+          searchType={searchType}
           selectedRestaurant={selectedRestaurant}
           restaurantSelector={restaurantSelector}
         />

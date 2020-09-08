@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../Card/Card";
 import ResultData from "./ResultData/ResultData";
-import SearchButtons from "./Buttons/Buttons";
+import Buttons from "./Buttons/Buttons";
 import LoadingData from "./LoadingData/LoadingData";
 
 const SearchResult = (props) => {
@@ -12,7 +12,7 @@ const SearchResult = (props) => {
       {selectedRestaurant ? (
         <>
           <ResultData selectedRestaurant={selectedRestaurant} />
-          <SearchButtons restaurantSelector={restaurantSelector} />
+          <Buttons restaurantSelector={restaurantSelector} />
         </>
       ) : (
         <LoadingData />
