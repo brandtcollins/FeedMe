@@ -5,6 +5,33 @@
   z-index: -100;
   width: 100vw;
   height: 100vh;
-  background-image: url("/images/pexels-pixabay-33162.jpg");
   opacity: 0.25;
+}
+
+.food,
+.drinks {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: -100;
+  opacity: 0.35;
+  transition: 0.5s all ease;
+  background-size: cover;
+  background-position: center;
+}
+
+.drinks {
+  background-image: url("https://images.pexels.com/photos/544961/pexels-photo-544961.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+}
+
+.food {
+  background-image: url("/images/pexels-pixabay-33162.jpg");
+}
+
+.food.hide,
+.drinks.hide {
+  opacity: 0;
+  transition: 0.5s all ease;
 }
