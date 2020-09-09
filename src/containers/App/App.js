@@ -16,7 +16,8 @@ function App() {
   });
   const [restaurants, updateRestaurants] = useState([]);
   const [selectedRestaurant, updateSelectedRestaurant] = useState("");
-  const [refresh, setRefresh] = useState(1);
+  const [page, setPage] = useState(1);
+  const [error, updateError] = useState(false);
 
   const deleteRestaurant = () => {
     updateRestaurants((prevRestaurants) => {
@@ -25,8 +26,8 @@ function App() {
         return item.restaurant.id !== selectedRestaurant.id;
       });
     });
-    if (restaurants.length <= 2) {
-      setRefresh(refresh + 20);
+    if (restaurants.length <= 3) {
+      setPage(page + 20);
     }
   };
 
@@ -58,7 +59,7 @@ function App() {
     const handleLocationSearch = async () => {
       zomato
         .get(
-          `search?start=${refresh}&count=50&&category=${zomatoCategory}&lat=${position.latitude}&lon=${position.longitude}&radius=500&sort=real_distance`
+          `search?start=${page}&count=50&&category=${zomatoCategory}&lat=${position.latitude}&lon=${position.longitude}&radius=500&sort=real_distance`
         )
         .then((response) => {
           updateSearch(true);
@@ -67,7 +68,7 @@ function App() {
         });
     };
     handleLocationSearch();
-  }, [position, category, refresh]);
+  }, [position, category, page]);
 
   useEffect(() => {
     restaurantSelector();
@@ -78,7 +79,6 @@ function App() {
     updateSearch(null);
     setSearchType(null);
     updateRestaurants(null);
-    console.log(`reset: ${restaurants}`);
   };
 
   const handleCategoryChange = (categoryEl) => {
@@ -106,8 +106,11 @@ function App() {
           updateSearch={updateSearch}
           updatedPosition={updatePosition}
           selectedRestaurant={selectedRestaurant}
+          updateSelectedRestaurant={updateSelectedRestaurant}
           restaurants={restaurants}
           restaurantSelector={handleClick}
+          error={error}
+          updateError={updateError}
         />
       ) : (
         <ProximitySearch

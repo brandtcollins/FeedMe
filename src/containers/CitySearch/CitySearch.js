@@ -9,31 +9,53 @@ const City = (props) => {
 
   const [input, updateInput] = useState("");
 
+  const empty = [];
+
+  console.log(empty.length);
+
   const {
     updateSearch,
     searchType,
     updatedPosition,
     selectedRestaurant,
+    updateSelectedRestaurant,
     restaurantSelector,
     restaurant,
+    error,
+    updateError,
   } = props;
 
   const handleSearch = (event) => {
+    updateSelectedRestaurant();
     event.preventDefault();
     updateSearch(input);
 
     const findCityCoordinates = async () => {
-      const response = await axios.get(
-        `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
-          input
-        )}&key=${OPENCAGE_API_KEY}&language=en&pretty=1`
-      );
-      let searchResults = response.data.results.shift();
-      updatedPosition({
-        latitude: searchResults.geometry.lat,
-        longitude: searchResults.geometry.lng,
-      });
+      axios
+        .get(
+          `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
+            input
+          )}&key=${OPENCAGE_API_KEY}&language=en&pretty=1`
+        )
+        .then((response) => {
+          if (response.data.results.length === 0) {
+            console.log(`Empty array.`);
+            updateError("Hmm...location wasn't found.  Search again.");
+          } else {
+            let searchResults = response.data.results.shift();
+            updatedPosition({
+              latitude: searchResults.geometry.lat,
+              longitude: searchResults.geometry.lng,
+            });
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
     };
+
     findCityCoordinates();
   };
 
@@ -48,6 +70,7 @@ const City = (props) => {
         restaurant={restaurant}
         selectedRestaurant={selectedRestaurant}
         restaurantSelector={restaurantSelector}
+        error={error}
       />
     </Container>
   );

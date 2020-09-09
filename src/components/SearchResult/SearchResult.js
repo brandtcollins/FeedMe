@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../Card/Card";
 import ResultData from "./ResultData/ResultData";
 import Buttons from "./Buttons/Buttons";
 import LoadingData from "./LoadingData/LoadingData";
 
 const SearchResult = (props) => {
-  const { selectedRestaurant, restaurantSelector } = props;
+  const { selectedRestaurant, restaurantSelector, error } = props;
 
   return (
     <Card>
@@ -15,7 +15,7 @@ const SearchResult = (props) => {
           <Buttons restaurantSelector={restaurantSelector} />
         </>
       ) : (
-        <LoadingData />
+        <LoadingData error={error} />
       )}
     </Card>
   );
