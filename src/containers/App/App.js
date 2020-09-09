@@ -14,14 +14,28 @@ function App() {
     latitude: null,
     longitude: null,
   });
-  const [restaurants, updateRestaurants] = useState(null);
+  const [restaurants, updateRestaurants] = useState([]);
   const [selectedRestaurant, updateSelectedRestaurant] = useState("");
 
+  const deleteRestaurant = () => {
+    updateRestaurants((prevRestaurants) => {
+      console.log(prevRestaurants);
+      return prevRestaurants.filter((item) => {
+        return item.restaurant.id !== selectedRestaurant.id;
+      });
+    });
+  };
+
   const restaurantSelector = () => {
-    const randomNumber = Math.floor(Math.random() * 20);
+    const randomNumber = Math.floor(Math.random() * restaurants.length);
     if (search) {
       updateSelectedRestaurant(restaurants[randomNumber].restaurant);
     }
+  };
+
+  const handleClick = () => {
+    deleteRestaurant();
+    restaurantSelector();
   };
 
   useEffect(() => {
@@ -42,17 +56,15 @@ function App() {
         )
         .then((response) => {
           updateSearch(true);
-          console.log(response);
           updateRestaurants(response.data.restaurants);
         });
     };
     console.log(`Category is: ${category}`);
     handleLocationSearch();
-  }, [position]);
+  }, [position, category]);
 
   useEffect(() => {
     restaurantSelector();
-    console.log(restaurants);
   }, [restaurants]);
 
   const resetSearch = () => {
@@ -89,13 +101,13 @@ function App() {
           updatedPosition={updatePosition}
           selectedRestaurant={selectedRestaurant}
           restaurants={restaurants}
-          restaurantSelector={restaurantSelector}
+          restaurantSelector={handleClick}
         />
       ) : (
         <ProximitySearch
           searchType={searchType}
           selectedRestaurant={selectedRestaurant}
-          restaurantSelector={restaurantSelector}
+          restaurantSelector={handleClick}
         />
       )}
       <Background category={category} />
