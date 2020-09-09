@@ -16,6 +16,7 @@ function App() {
   });
   const [restaurants, updateRestaurants] = useState([]);
   const [selectedRestaurant, updateSelectedRestaurant] = useState("");
+  const [refresh, setRefresh] = useState(1);
 
   const deleteRestaurant = () => {
     updateRestaurants((prevRestaurants) => {
@@ -24,10 +25,15 @@ function App() {
         return item.restaurant.id !== selectedRestaurant.id;
       });
     });
+    if (restaurants.length <= 2) {
+      setRefresh(refresh + 20);
+    }
   };
 
   const restaurantSelector = () => {
-    const randomNumber = Math.floor(Math.random() * restaurants.length);
+    const randomNumber = restaurants
+      ? Math.floor(Math.random() * restaurants.length)
+      : Math.floor(Math.random() * 20);
     if (search) {
       updateSelectedRestaurant(restaurants[randomNumber].restaurant);
     }
@@ -52,16 +58,16 @@ function App() {
     const handleLocationSearch = async () => {
       zomato
         .get(
-          `search?start=1&count=50&&category=${zomatoCategory}&lat=${position.latitude}&lon=${position.longitude}&radius=500&sort=real_distance`
+          `search?start=${refresh}&count=50&&category=${zomatoCategory}&lat=${position.latitude}&lon=${position.longitude}&radius=500&sort=real_distance`
         )
         .then((response) => {
           updateSearch(true);
           updateRestaurants(response.data.restaurants);
+          console.log(response);
         });
     };
-    console.log(`Category is: ${category}`);
     handleLocationSearch();
-  }, [position, category]);
+  }, [position, category, refresh]);
 
   useEffect(() => {
     restaurantSelector();

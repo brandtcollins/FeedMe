@@ -36,8 +36,6 @@ h4 {
   color: var(--primaryheading);
 }
 
-//text size
-
 h1,
 .text--xxl {
   font-size: var(--text-xxl);
@@ -53,6 +51,7 @@ h2,
 p {
   font-weight: 600;
   font-size: 0.9rem;
+  line-height: 1.25rem;
   color: var(--primaryparagraph);
   margin: 0;
 }
