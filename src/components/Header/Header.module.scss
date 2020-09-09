@@ -2,6 +2,17 @@
   display: flex;
   padding: 5rem 3rem 0 3rem;
   justify-content: space-between;
+  flex-wrap: wrap;
+  @media only screen and (max-width: 475px) {
+    .logo {
+      min-width: 100%;
+      text-align: center;
+      padding-bottom: 1rem;
+    }
+    .themeSwitch {
+      margin: 0 auto;
+    }
+  }
 }
 
 .logo {
@@ -26,12 +37,15 @@ body {
 
 .themeSwitch {
   background: #f2a007;
-  width: 110px;
+  min-width: 110px;
+  max-width: 110px;
+
   height: 35px;
   position: relative;
   border-radius: 8px;
   display: flex;
   justify-content: space-evenly;
+  margin-top: 1rem;
 
   .switch {
     background: white;
@@ -68,6 +82,7 @@ body {
   }
   h2:nth-child(2) {
     text-align: right;
+    padding-bottom: 2rem;
   }
   p {
     color: var(--yellow);
@@ -76,13 +91,24 @@ body {
     text-align: center;
   }
   @media only screen and (max-width: 600px) {
+    margin-top: var(--space-lg);
     h2 {
       font-size: 2.5rem;
-
       text-align: center;
+      max-width: 13ch;
+      margin: 0 auto;
+      padding-bottom: 2rem;
     }
     h2:nth-child(2) {
+      display: none;
       text-align: center;
+    }
+
+    p {
+      max-width: 19ch;
+      margin: 0 auto;
+      padding-bottom: 1.5rem;
+      line-height: 2rem;
     }
   }
 }

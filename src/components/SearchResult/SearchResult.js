@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "../Card/Card";
 import ResultData from "./ResultData/ResultData";
 import Buttons from "./Buttons/Buttons";
@@ -12,7 +12,10 @@ const SearchResult = (props) => {
       {selectedRestaurant ? (
         <>
           <ResultData selectedRestaurant={selectedRestaurant} />
-          <Buttons restaurantSelector={restaurantSelector} />
+          <Buttons
+            restaurantSelector={restaurantSelector}
+            selectedRestaurant={selectedRestaurant}
+          />
         </>
       ) : (
         <LoadingData error={error} />

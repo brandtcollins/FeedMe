@@ -21,7 +21,6 @@ function App() {
 
   const deleteRestaurant = () => {
     updateRestaurants((prevRestaurants) => {
-      console.log(prevRestaurants);
       return prevRestaurants.filter((item) => {
         return item.restaurant.id !== selectedRestaurant.id;
       });
@@ -64,7 +63,6 @@ function App() {
         .then((response) => {
           updateSearch(true);
           updateRestaurants(response.data.restaurants);
-          console.log(response);
         });
     };
     handleLocationSearch();
@@ -81,8 +79,8 @@ function App() {
     updateRestaurants(null);
   };
 
-  const handleCategoryChange = (categoryEl) => {
-    updateCategory(categoryEl);
+  const handleCategoryChange = (categorySwitch) => {
+    updateCategory(categorySwitch);
     resetSearch();
   };
 

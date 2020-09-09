@@ -2,13 +2,12 @@ import React from "react";
 import styles from "./Buttons.module.scss";
 
 const SearchButtons = (props) => {
-  const { restaurantSelector } = props;
-
+  const { restaurantSelector, selectedRestaurant } = props;
   return (
     <div className={styles.buttons}>
-      <button className={styles.viewMore} onClick={() => restaurantSelector()}>
-        Sounds good!
-      </button>
+      <a href={selectedRestaurant.events_url} target="_blank">
+        <button className={styles.viewMore}>Show me more info</button>
+      </a>
       <button className={styles.next} onClick={() => restaurantSelector()}>
         Nah, next!
       </button>
