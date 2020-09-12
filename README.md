@@ -4,9 +4,9 @@ Feedme is a randomized restaurant selector. It utilizes two APIs, Zomato and Unc
 
 A hosted demo of this app can be found here: https://feedme-813b6.web.app/
 
-![Home Page Screenshot](public/screenshots/HomeScreen_dr.png)
-![City Search Screenshot](public/screenshots/CitySearch_dr.png)
-![Search Results Screenshot](public/screenshots/SearchResults_dr.png)
+![Home Page Screenshot](public/images/screenshots/HomeScreen_dr.png)
+![City Search Screenshot](public/images/screenshots/CitySearch_dr.png)
+![Search Results Screenshot](public/images/screenshots/SearchResults_dr.png)
 
 ## Installing the and running the app
 
