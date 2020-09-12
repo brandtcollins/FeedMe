@@ -9,10 +9,6 @@ const City = (props) => {
 
   const [input, updateInput] = useState("");
 
-  const empty = [];
-
-  console.log(empty.length);
-
   const {
     updateSearch,
     searchType,
@@ -39,7 +35,6 @@ const City = (props) => {
         )
         .then((response) => {
           if (response.data.results.length === 0) {
-            console.log(`Empty array.`);
             updateError("Hmm...location wasn't found.  Search again.");
           } else {
             let searchResults = response.data.results.shift();

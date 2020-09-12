@@ -3,7 +3,6 @@ import styles from "./LoadingData.module.scss";
 
 const Loading = (props) => {
   const { error } = props;
-  console.log(error);
   return (
     <div className={styles.loading}>
       <h1>feedme</h1>

@@ -27,7 +27,7 @@ const SearchType = (props) => {
         <img src="/images/City.svg" alt="City Illustration" />
         <h3>Search by city</h3>
         <p>
-          Traveling soon? Planning tomorro's out-of-town trip? Enter the city
+          Traveling soon? Wanting to plan tomorrow's day trip? Enter the city
           you're interested in and go.
         </p>
       </Card>

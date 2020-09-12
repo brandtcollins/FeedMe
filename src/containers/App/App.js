@@ -56,24 +56,32 @@ function App() {
     zomato.defaults.headers.post["Content-Type"] = "application/json";
 
     const handleLocationSearch = async () => {
-      zomato
-        .get(
-          `search?start=${page}&count=50&&category=${zomatoCategory}&lat=${position.latitude}&lon=${position.longitude}&radius=500&sort=real_distance`
-        )
-        .then((response) => {
-          updateSearch(true);
-          updateRestaurants(response.data.restaurants);
-        });
+      if (position.latitude) {
+        zomato
+          .get(
+            `search?start=${page}&count=50&&category=${zomatoCategory}&lat=${position.latitude}&lon=${position.longitude}&radius=500&sort=real_distance`
+          )
+          .then((response) => {
+            updateSearch(true);
+            updateRestaurants(response.data.restaurants);
+          });
+      }
     };
     handleLocationSearch();
   }, [position, category, page]);
 
-  useEffect(() => {
-    restaurantSelector();
-  }, [restaurants]);
+  // useEffect(() => {
+  //   restaurantSelector();
+  // }, [restaurants]);
+
+  useEffect(restaurantSelector, [restaurants]);
 
   const resetSearch = () => {
     updateSelectedRestaurant("");
+    updatePosition({
+      latitude: null,
+      longitude: null,
+    });
     updateSearch(null);
     setSearchType(null);
     updateRestaurants(null);
